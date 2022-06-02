@@ -36,6 +36,8 @@ public class V1 extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         mostrarDatos();
+
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -84,13 +86,14 @@ public class V1 extends javax.swing.JFrame {
 
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "FECHA", "TIPO DE GASTO", "VALOR"
+                "#", "FECHA", "TIPO DE GASTO", "VALOR"
             }
         ));
         tabla.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -133,32 +136,35 @@ public class V1 extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(29, 29, 29)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtvalor, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(cajadeopcion, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnlimpiar)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnagregar)))
+                                .addGap(42, 42, 42)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(campofecha, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
                                     .addComponent(txtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(27, 27, 27)
                                 .addComponent(btneditar)
                                 .addGap(32, 32, 32)
-                                .addComponent(btnborrar))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btnborrar)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtvalor, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cajadeopcion, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnlimpiar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnagregar)))
-                        .addGap(42, 42, 42)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(campofecha, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(19, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -184,7 +190,7 @@ public class V1 extends javax.swing.JFrame {
                             .addComponent(btnborrar)
                             .addComponent(btneditar)))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(12, 12, 12)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -203,29 +209,29 @@ public class V1 extends javax.swing.JFrame {
     }//GEN-LAST:event_txtotalActionPerformed
 
     private void btneditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditarActionPerformed
-//           int indice = tabla.getSelectedRow();
-//        gastosDAO gDao = new gastosDAO();
-//        gastosBL gst = this.gastoArr.get(indice);
-//
-//        try {
-//            System.out.println("Id: " + tabla.getValueAt(indice, 0).toString());
-//            gst.setId(Integer.parseInt(tabla.getValueAt(indice, 0).toString()));
-//            gst.setTipodegasto(tabla.getValueAt(indice, 1).toString());
-//            gst.setGasto(Integer.parseInt(tabla.getValueAt(indice, 2).toString()));
-////            gst.setFecha(tabla.getValueAt(indice, 3).toString());
-//        
-//
-//            if (gDao.actualizarDocente(gst)) {
-//                JOptionPane.showMessageDialog(this, "SE ACTUALIZÓ CORRECTAMENTE");
-//                this.mostrarDatos();
-//
-//            } else {
-//                JOptionPane.showMessageDialog(this, "HA OCURRIDO UN ERROR");
-//            }
-//
-//        } catch (Exception e) {
-//            System.out.println("ERROR ACTUALIZANDO DOCENTE: " + e.getMessage());
-//        }
+        int indice = tabla.getSelectedRow();
+        gastosDAO gDao = new gastosDAO();
+        gastosBL gst = this.gastoArr.get(indice);
+
+        try {
+            System.out.println("Id: " + tabla.getValueAt(indice, 0).toString());
+            gst.setId(Integer.parseInt(tabla.getValueAt(indice, 0).toString()));
+            gst.setTipodegasto(tabla.getValueAt(indice, 1).toString());
+            gst.setGasto(Integer.parseInt(tabla.getValueAt(indice, 2).toString()));
+//            gst.setFecha(tabla.getValueAt(indice, 3).toString());
+        
+
+            if (gDao.actualizarDocente(gst)) {
+                JOptionPane.showMessageDialog(this, "SE ACTUALIZÓ CORRECTAMENTE");
+                this.mostrarDatos();
+
+            } else {
+                JOptionPane.showMessageDialog(this, "HA OCURRIDO UN ERROR");
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Actualizando: "+e.getMessage());
+        }
     }//GEN-LAST:event_btneditarActionPerformed
 
     private void btnagregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnagregarActionPerformed
@@ -265,8 +271,9 @@ public class V1 extends javax.swing.JFrame {
     private void btnlimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlimpiarActionPerformed
         this.limpiar();
     }//GEN-LAST:event_btnlimpiarActionPerformed
-    
+
     private void btnborrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnborrarActionPerformed
+
         int indice = tabla.getSelectedRow();
 
         gastosDAO gDao = new gastosDAO();
@@ -276,20 +283,35 @@ public class V1 extends javax.swing.JFrame {
             int resp = JOptionPane.showConfirmDialog(this, "¿ELIMINARÁS ESTOS DATOS?");
 
             if (resp == JOptionPane.YES_OPTION) {
-                if (gDao.eliminarG(gst.getId())) {
-                    JOptionPane.showMessageDialog(this, "SE ELIMINÓ CORRECTAMENTE");
-                } else {
-                    JOptionPane.showMessageDialog(this, "SE PRESENTÓ UN ERROR AL ELIMINAR");
-                }
+                String sql = "DELETE FROM gastos WHERE id = ?";
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ps.setInt(1, gst.getId());
+
+                //validacion corta
+                if(ps.executeUpdate() > 0){
+                   JOptionPane.showMessageDialog(this, "SE ELIMINÓ CORRECTAMENTE");
+                
+                }                
+                    
             } else if (resp == JOptionPane.NO_OPTION) {
                 JOptionPane.showMessageDialog(this, "NO SE ELIMINÓ");
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(this, "Borrando: "+e.getMessage());
         }
-        this.mostrarDatos();
+//        this.mostrarDatos();
+//        int fila = tabla.getSelectedRowCount();
+//        if(fila < 1){
+//            JOptionPane.showMessageDialog(this, "Seleccione un registro de la tabla");
+//            
+//       }// else{
+//            if(gDao.deleteDatos(tabla.getValueAt(tabla.getSelectedRow(), 0).toString())>0);
+//            mostrarDatos();
+//        }
+     
     }//GEN-LAST:event_btnborrarActionPerformed
-    /*Funcion limpiar*/
+
+        /*Funcion limpiar*/
     public void limpiar() {
         cajadeopcion.setSelectedIndex(0);
         txtvalor.setText("");
@@ -297,28 +319,29 @@ public class V1 extends javax.swing.JFrame {
 
     /*Funcion mostrar datos*/
     private void mostrarDatos() {
-
         //Se modela la tabla  especificamente colummnas
         DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("#");
         modelo.addColumn("FECHA");
         modelo.addColumn("TIPO DE GASTO");
         modelo.addColumn("VALOR");
 
         tabla.setModel(modelo);
 
-        String[] fila = new String[3];
+        String[] fila = new String[4];
 
         try {
 
-            String sql = "SELECT tipodegasto, valor, fecha  FROM gastos";
+            String sql = "SELECT id, tipodegasto, valor, fecha  FROM gastos";
             PreparedStatement pt = conn.prepareStatement(sql);
             ResultSet result = pt.executeQuery();
 
             while (result.next()) {
 
-                fila[0] = result.getString(3);
-                fila[1] = result.getString(1);
+                fila[0] = result.getString(1);
+                fila[1] = result.getString(4);
                 fila[2] = result.getString(2);
+                fila[3] = result.getString(3);
 
                 modelo.addRow(fila);
 
@@ -330,8 +353,6 @@ public class V1 extends javax.swing.JFrame {
         }
 
     }
-
-    
 
     /**
      * @param args the command line arguments

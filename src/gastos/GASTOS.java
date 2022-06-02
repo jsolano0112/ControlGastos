@@ -14,7 +14,7 @@ import java.sql.SQLException;
 public class GASTOS {
 
  
-    public static void main(String[] args)  throws SQLException{
+    public static void main(String[] args){
         V1 menu = new V1();
         menu.setVisible(true);
     }
