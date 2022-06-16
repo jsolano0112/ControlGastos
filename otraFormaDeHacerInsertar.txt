@@ -1,0 +1,24 @@
+  String tipodegasto = cajadeopcion.getSelectedItem().toString();
+        int valorGasto = Integer.parseInt(txtvalor.getText());
+        String fecha = ((JTextField) campofecha.getDateEditor().getUiComponent()).getText();
+
+        gastosBL gst = new gastosBL(valorGasto, Date.valueOf(fecha), tipodegasto);
+
+        try {
+            String sql = "INSERT INTO gastos (tipodegasto, valor, fecha) VALUES (?, ?, ?)";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            stmt.setString(1, tipodegasto);
+            stmt.setInt(2, valorGasto);
+            stmt.setDate(3, gst.getFecha());
+
+            int cantidad = stmt.executeUpdate();
+
+            if (cantidad > 0) {
+                JOptionPane.showMessageDialog(this, "DATOS GUARDADOS CORRECTAMENTE");
+                mostrarDatos();
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "ERROR AL AGREGAR GASTO: " + e.getMessage());
+        }

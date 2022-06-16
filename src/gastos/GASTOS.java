@@ -4,7 +4,7 @@
  */
 package gastos;
 
-import Vistas.V1;
+import GUI.V1;
 import java.sql.SQLException;
 
 /**
