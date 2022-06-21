@@ -6,6 +6,9 @@ package GUI;
 
 import java.awt.Color;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import BD.Conexion;
+import java.sql.Connection;
 
 /**
  *
@@ -13,7 +16,8 @@ import javax.swing.JFrame;
  */
 public class V2 extends javax.swing.JFrame {
 
-    
+    private Conexion Conexion = new Conexion();
+    Connection conn = Conexion.conectar();
     
     public V2() {
         initComponents();
@@ -141,6 +145,25 @@ public class V2 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cajadeopcionActionPerformed
 
+    public void tipoMes(){
+        boolean es = true;
+        try {
+//        if(cajadeopcion.setSelectedIndex(0)){
+//            
+//            String sql = "SELECT sum(valor) AS sumaTotal FROM gastos;";
+//            PreparedStatement stmt = conn.prepareStatement(sql);
+//            ResultSet rs = stmt.executeQuery(sql);
+//            String resultado = "sumaTotal";
+//            
+//            if(rs.next()){
+//                txtotal.setText(rs.getString(1));
+//            }
+//           
+//        }
+         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "ERROR AL MOSTRAR VALOR TOTAL: " + e.getMessage());
+        }
+    }
     /**
      * @param args the command line arguments
      */

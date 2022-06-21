@@ -33,6 +33,7 @@ public class V1 extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         mostrarDatos();
+        totalSuma();
 
     }
 
@@ -80,6 +81,7 @@ public class V1 extends javax.swing.JFrame {
 
         jLabel1.setText("Valor acumulado de gastos:");
 
+        txtotal.setEditable(false);
         txtotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtotalActionPerformed(evt);
@@ -143,27 +145,21 @@ public class V1 extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnlimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnagregar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btneditar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtvalor, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cajadeopcion, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(42, 42, 42)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(campofecha, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(btnlimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnagregar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btneditar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtvalor, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cajadeopcion, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(42, 42, 42)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(campofecha, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(109, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,6 +171,10 @@ public class V1 extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnborrar)
                 .addGap(20, 20, 20))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,41 +208,30 @@ public class V1 extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-   
+
     private void txtvalorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtvalorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtvalorActionPerformed
 
     private void txtotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtotalActionPerformed
-        try {
-            String sql = "SELECT sum(valor) AS sumaTotal FROM gastos;";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            
-            
-            txtotal.setText(sql);
-             
-            
 
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "ERROR AL MOSTRAR VALOR TOTAL: " + e.getMessage());
-        }
-      
+
     }//GEN-LAST:event_txtotalActionPerformed
 
     private void btneditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditarActionPerformed
-          try {
+        try {
 
             String sql = "UPDATE gastos SET tipodegasto=?,valor=?,fecha=? WHERE id=?";
             int filaSeleccionada = tabla.getSelectedRow();
-            String dao = (String)tabla.getValueAt(filaSeleccionada, 0);
+            String dao = (String) tabla.getValueAt(filaSeleccionada, 0);
             PreparedStatement stmt = conn.prepareStatement(sql);
-            
+
             int selecciona = cajadeopcion.getSelectedIndex();
             stmt.setString(1, cajadeopcion.getItemAt(selecciona));
             stmt.setString(2, txtvalor.getText());
             stmt.setString(3, ((JTextField) campofecha.getDateEditor().getUiComponent()).getText());
             stmt.setString(4, dao);
-            
+
             int cantidad = stmt.executeUpdate();
 
             if (cantidad > 0) {
@@ -253,21 +242,23 @@ public class V1 extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "ERROR AL ACTUALIZAR GASTO: " + e.getMessage());
         }
-      
+
     }//GEN-LAST:event_btneditarActionPerformed
-    
-   
+
+
     private void btnagregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnagregarActionPerformed
 
         try {
             String sql = "INSERT INTO gastos (tipodegasto, valor, fecha) VALUES (?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(sql);
-
-            int selecciona = cajadeopcion.getSelectedIndex();
-            stmt.setString(1, cajadeopcion.getItemAt(selecciona));
-            stmt.setString(2, txtvalor.getText());  
+//            do{
+                  int selecciona = cajadeopcion.getSelectedIndex();
+                  stmt.setString(1, cajadeopcion.getItemAt(selecciona));
+//            }while(cajadeopcion!="Tipo de gasto");
+          
+            stmt.setString(2, txtvalor.getText());
             stmt.setString(3, ((JTextField) campofecha.getDateEditor().getUiComponent()).getText());
-            
+
             int cantidad = stmt.executeUpdate();
 
             if (cantidad > 0) {
@@ -285,11 +276,11 @@ public class V1 extends javax.swing.JFrame {
     private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
         int filaSeleccionada = tabla.rowAtPoint(evt.getPoint());
         cajadeopcion.setSelectedItem(tabla.getValueAt(filaSeleccionada, 2).toString());
-        
+
         txtvalor.setText(tabla.getValueAt(filaSeleccionada, 3).toString());
-        
+
 //        String b =  ((JTextField) campofecha.getDateEditor().getUiComponent()).getText();
-//        campofecha.setDate(tabla.getValueAt(filaSeleccionada, 1).toString());
+//        campofecha.setDate(tabla.getValueAt(filaSeleccionada, 1));
     }//GEN-LAST:event_tablaMouseClicked
 
     private void btnlimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlimpiarActionPerformed
@@ -300,21 +291,21 @@ public class V1 extends javax.swing.JFrame {
         int filaSeleccionada = tabla.getSelectedRow();
         gastosBL enti = new gastosBL();
         try {
-            int resp= JOptionPane.showConfirmDialog(this, "Desea eliminar el registro: "+enti.getId()+"?");
-            if (resp == JOptionPane.YES_OPTION){
-            String sql = "DELETE FROM gastos WHERE id = "+tabla.getValueAt(filaSeleccionada, 0);
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            
-              int cantidad = stmt.executeUpdate();
+            int resp = JOptionPane.showConfirmDialog(this, "Desea eliminar el registro: " + enti.getId() + "?");
+            if (resp == JOptionPane.YES_OPTION) {
+                String sql = "DELETE FROM gastos WHERE id = " + tabla.getValueAt(filaSeleccionada, 0);
+                PreparedStatement stmt = conn.prepareStatement(sql);
 
-            if (cantidad > 0) {
-                JOptionPane.showMessageDialog(this, "DATOS ELIMINADOS CORRECTAMENTE");
-                mostrarDatos();
-            }
-            }else{
+                int cantidad = stmt.executeUpdate();
+
+                if (cantidad > 0) {
+                    JOptionPane.showMessageDialog(this, "DATOS ELIMINADOS CORRECTAMENTE");
+                    mostrarDatos();
+                }
+            } else {
                 JOptionPane.showMessageDialog(this, "CANCELADO CORRECTAMENTE");
             }
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "ERROR AL ELIMINAR GASTO: " + e.getMessage());
         }
@@ -334,6 +325,27 @@ public class V1 extends javax.swing.JFrame {
     public void limpiar() {
         cajadeopcion.setSelectedIndex(0);
         txtvalor.setText("");
+//        campofecha.setText("//");
+
+    }
+
+    /*Funcion mostrar total*/
+    public void totalSuma() {
+        try {
+            String sql = "SELECT sum(valor) AS sumaTotal FROM gastos;";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery(sql);
+            String resultado = "sumaTotal";
+            
+            if(rs.next()){
+                txtotal.setText(rs.getString(1));
+            }
+           
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "ERROR AL MOSTRAR VALOR TOTAL: " + e.getMessage());
+        }
+
     }
 
     /*Funcion mostrar datos*/
@@ -366,7 +378,7 @@ public class V1 extends javax.swing.JFrame {
 
             }
             tabla.setModel(modelo);
-
+            totalSuma();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error en la consulta: " + e);
         }
