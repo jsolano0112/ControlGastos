@@ -225,9 +225,14 @@ public class V1 extends javax.swing.JFrame {
             int filaSeleccionada = tabla.getSelectedRow();
             String dao = (String) tabla.getValueAt(filaSeleccionada, 0);
             PreparedStatement stmt = conn.prepareStatement(sql);
-
-            int selecciona = cajadeopcion.getSelectedIndex();
-            stmt.setString(1, cajadeopcion.getItemAt(selecciona));
+            
+             if (cajadeopcion.getSelectedIndex() == 0) {
+                JOptionPane.showMessageDialog(this, "ESCOGE UN TIPO DE GASTO");
+            } else {
+                int selecciona = cajadeopcion.getSelectedIndex();
+                stmt.setString(1, cajadeopcion.getItemAt(selecciona));
+            }
+             
             stmt.setString(2, txtvalor.getText());
             stmt.setString(3, ((JTextField) campofecha.getDateEditor().getUiComponent()).getText());
             stmt.setString(4, dao);
@@ -251,11 +256,14 @@ public class V1 extends javax.swing.JFrame {
         try {
             String sql = "INSERT INTO gastos (tipodegasto, valor, fecha) VALUES (?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(sql);
-//            do{
-                  int selecciona = cajadeopcion.getSelectedIndex();
-                  stmt.setString(1, cajadeopcion.getItemAt(selecciona));
-//            }while(cajadeopcion!="Tipo de gasto");
-          
+
+            if (cajadeopcion.getSelectedIndex() == 0) {
+                JOptionPane.showMessageDialog(this, "ESCOGE UN TIPO DE GASTO");
+            } else {
+                int selecciona = cajadeopcion.getSelectedIndex();
+                stmt.setString(1, cajadeopcion.getItemAt(selecciona));
+            }
+
             stmt.setString(2, txtvalor.getText());
             stmt.setString(3, ((JTextField) campofecha.getDateEditor().getUiComponent()).getText());
 
@@ -336,11 +344,10 @@ public class V1 extends javax.swing.JFrame {
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery(sql);
             String resultado = "sumaTotal";
-            
-            if(rs.next()){
+
+            if (rs.next()) {
                 txtotal.setText(rs.getString(1));
             }
-           
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "ERROR AL MOSTRAR VALOR TOTAL: " + e.getMessage());

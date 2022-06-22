@@ -9,6 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import BD.Conexion;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 /**
  *
@@ -18,16 +20,15 @@ public class V2 extends javax.swing.JFrame {
 
     private Conexion Conexion = new Conexion();
     Connection conn = Conexion.conectar();
-    
+
     public V2() {
         initComponents();
-        setTitle("GASTOS POR MES"); //titulo de la ventana
+        setTitle("SUMA POR TIPO DE GASTO"); //titulo de la ventana
 //        this.getContentPane().setBackground(new Color(100,1,1));
         setLocationRelativeTo(null);
-         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//LIBERA LA MEMORIA, CIEERRA LA OPERACION
-         
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//LIBERA LA MEMORIA, CIEERRA LA OPERACION
+
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -45,7 +46,8 @@ public class V2 extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         cajadeopcion = new javax.swing.JComboBox<>();
-        jTextField2 = new javax.swing.JTextField();
+        txtotal = new javax.swing.JTextField();
+        btnok = new javax.swing.JButton();
         jComboBox2 = new javax.swing.JComboBox<>();
 
         jLabel3.setText("jLabel3");
@@ -68,6 +70,15 @@ public class V2 extends javax.swing.JFrame {
             }
         });
 
+        txtotal.setEditable(false);
+
+        btnok.setText("OK");
+        btnok.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnokActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -80,12 +91,14 @@ public class V2 extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
-                        .addComponent(cajadeopcion, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cajadeopcion, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(28, 28, 28)
-                        .addComponent(jTextField2)))
-                .addGap(25, 25, 25))
+                        .addComponent(txtotal)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnok, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -94,12 +107,13 @@ public class V2 extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(cajadeopcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel5))
+                        .addComponent(jLabel5)
+                        .addComponent(btnok))
                     .addComponent(jLabel4))
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(98, Short.MAX_VALUE))
         );
 
@@ -110,32 +124,27 @@ public class V2 extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jLabel1)))
-                .addContainerGap(21, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(188, Short.MAX_VALUE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(100, 100, 100)))
+                        .addGap(38, 38, 38)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(79, 79, 79)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addComponent(jLabel1)
-                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(45, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(36, 36, 36)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(278, Short.MAX_VALUE)))
         );
 
         pack();
@@ -145,25 +154,49 @@ public class V2 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cajadeopcionActionPerformed
 
-    public void tipoMes(){
-        boolean es = true;
+    private void btnokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnokActionPerformed
+        tipoMes();
+    }//GEN-LAST:event_btnokActionPerformed
+
+    public void tipoMes() {
+
         try {
-//        if(cajadeopcion.setSelectedIndex(0)){
-//            
-//            String sql = "SELECT sum(valor) AS sumaTotal FROM gastos;";
-//            PreparedStatement stmt = conn.prepareStatement(sql);
-//            ResultSet rs = stmt.executeQuery(sql);
-//            String resultado = "sumaTotal";
-//            
-//            if(rs.next()){
-//                txtotal.setText(rs.getString(1));
-//            }
-//           
-//        }
-         } catch (Exception e) {
+
+            if (cajadeopcion.getSelectedIndex() == 1) {
+
+                String sql = "SELECT sum(valor) AS sumaTotal FROM gastos WHERE tipodegasto='Transporte';";
+                sq(sql);
+
+            } else if (cajadeopcion.getSelectedIndex() == 2) {
+                String sql = "SELECT sum(valor) AS sumaTotal FROM gastos WHERE tipodegasto='Comida';";
+                sq(sql);
+
+            } else if (cajadeopcion.getSelectedIndex() == 3) {
+                String sql = "SELECT sum(valor) AS sumaTotal FROM gastos WHERE tipodegasto='Teléfono';";
+                sq(sql);
+            } else {
+                JOptionPane.showMessageDialog(this, "No existe valor asignado para esta opción");
+            }
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "ERROR AL MOSTRAR VALOR TOTAL: " + e.getMessage());
         }
     }
+
+    public void sq(String sentencia) {
+        try {
+            String sql = sentencia;
+            PreparedStatement stmt = conn.prepareStatement(sentencia);
+            ResultSet rs = stmt.executeQuery(sentencia);
+            String resultado = "sumaTotal";
+
+            if (rs.next()) {
+                txtotal.setText(rs.getString(1));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "ERROR AL MOSTRAR VALOR TOTAL: " + e.getMessage());
+        }
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -200,6 +233,7 @@ public class V2 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnok;
     private javax.swing.JComboBox<String> cajadeopcion;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
@@ -208,6 +242,6 @@ public class V2 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField txtotal;
     // End of variables declaration//GEN-END:variables
 }
