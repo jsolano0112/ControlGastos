@@ -6,6 +6,7 @@ package GUI;
 
 import BD.Conexion;
 import BL.gastosBL;
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,7 +30,7 @@ public class V1 extends javax.swing.JFrame {
      */
     public V1() {
         setTitle("CONTROL DE GASTOS"); //titulo de la ventana
-//        this.getContentPane().setBackground(new Color(0,0,0)); color negro
+        this.getContentPane().setBackground(new Color(204,158,239));
         initComponents();
         setLocationRelativeTo(null);
         mostrarDatos();
@@ -57,6 +58,7 @@ public class V1 extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(204, 158, 239));
 
         cajadeopcion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tipo de gasto", "Transporte", "Comida", "Teléfono" }));
         cajadeopcion.addActionListener(new java.awt.event.ActionListener() {
@@ -283,12 +285,12 @@ public class V1 extends javax.swing.JFrame {
 
     private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
         int filaSeleccionada = tabla.rowAtPoint(evt.getPoint());
+        
         cajadeopcion.setSelectedItem(tabla.getValueAt(filaSeleccionada, 2).toString());
 
         txtvalor.setText(tabla.getValueAt(filaSeleccionada, 3).toString());
-
-//        String b =  ((JTextField) campofecha.getDateEditor().getUiComponent()).getText();
-//        campofecha.setDate(tabla.getValueAt(filaSeleccionada, 1));
+        
+//        campofecha.setDate(SimpleDateFormat(tabla.getValueAt(filaSeleccionada, 1)));
     }//GEN-LAST:event_tablaMouseClicked
 
     private void btnlimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlimpiarActionPerformed
